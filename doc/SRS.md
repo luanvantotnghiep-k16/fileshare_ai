@@ -116,12 +116,67 @@ EMAIL_PASS=your_email_password
 
 ### Overview
 The frontend for the file sharing project is built using Next.js, with authentication handled by Auth.js and UI components provided by ShadCN.
-
 ### Features
-- **File Upload**: Upload and share files securely with end-to-end encryption.
-- **Authentication**: Secure user login and registration powered by Auth.js.
-- **Responsive UI**: Modern, responsive design using ShadCN for consistent and reusable UI components.
-- **File Listing**: Send and receive file lists between users.
+
+#### File Upload
+
+- Upload page displays a table of user uploads with columns for:
+  - ID
+  - File name
+  - Recipient email
+  - Expiration date
+  - Created at
+
+- Empty-state UI shows “No results” when no uploads exist.
+
+- “Share File” button opens a modal form containing:
+  - Recipient email input
+  - Encryption password and confirm password fields
+  - Expiration date picker
+  - File selector supporting drag-and-drop or conventional file dialog
+
+- Client-side validation for email format, password strength, and expiration constraints.
+
+- Real-time upload progress bar and toast notifications for success or failure.
+
+#### Received Files
+
+- Page lists files shared with the current user, showing:
+  - ID
+  - File name
+  - Sender email
+  - Expiration date
+  - Received at
+
+- Download action launches a password prompt modal.
+
+- Inline error messages for decryption failures.
+
+#### User Profile Management
+
+- Profile page displays:
+  - Email
+  - First name
+  - Last name
+
+- Inline form to update first name and last name with immediate validation feedback.
+
+- Change password panel requiring:
+  - Current password
+  - New password
+  - Confirmation
+  - Strength indicator and validation
+
+#### UI/UX & Accessibility
+
+- Responsive layouts optimized for desktop, tablet, and mobile.
+
+- Consistent styling with ShadCN components and Tailwind CSS.
+
+- Keyboard-navigable modals and forms, with ARIA attributes for screen readers.
+
+- Clear, contextual error messages and form hints to guide users.
+
 
 ### Technologies Used
 - **Next.js 15**: The React framework for building fast and scalable applications with server-side rendering and static site generation.
