@@ -184,3 +184,29 @@ The frontend for the file sharing project is built using Next.js, with authentic
 - **ShadCN**: A customizable and consistent UI component library built on Radix and Tailwind CSS for creating beautiful UIs quickly.
 - **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
 - **TypeScript**: Superset of JavaScript that provides static typing, ensuring a robust and scalable codebase.
+
+
+
+---
+
+### fileshare.code-workspace
+
+Update your workspace file to include the three main folders:
+
+```json
+{
+  "folders": [
+    {
+      "path": "backend"
+    },
+    {
+      "path": "frontend"
+    },
+    {
+      "path": "doc"
+    }
+  ],
+  "settings": {
+    // your workspace-level settings go here
+  }
+}
