@@ -8,7 +8,8 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      process.env.MONGODB_URI || 'mongodb://localhost:27032/source_ai',
+      process.env.MONGODB_URI ||
+        'mongodb+srv://omdbwr:OdtdZ4xMLHOYafus@cluster0.5tm9dbu.mongodb.net/fileshare_ai_complete?retryWrites=true&w=majority&appName=Cluster0',
     ),
     UsersModule,
     AuthModule,
