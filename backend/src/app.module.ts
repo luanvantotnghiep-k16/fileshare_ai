@@ -1,19 +1,24 @@
 import { Module } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
+
+import configuration from './config/configuration';
+import { ConfigModule } from '@nestjs/config';
+import { FeaturesModule } from './features/features.module';
+import { DatabaseModule } from './database';
+
+const envModule = ConfigModule.forRoot({
+  envFilePath:
+    process.env.NODE_ENV === 'development'
+      ? ['.env.local', '.env.development']
+      : ['.env'],
+  load: [configuration],
+  isGlobal: true,
+});
 
 @Module({
-  imports: [
-    MongooseModule.forRoot(
-      process.env.MONGODB_URI ||
-        'mongodb+srv://omdbwr:OdtdZ4xMLHOYafus@cluster0.5tm9dbu.mongodb.net/fileshare_ai_complete?retryWrites=true&w=majority&appName=Cluster0',
-    ),
-    UsersModule,
-    AuthModule,
-  ],
+  imports: [envModule, FeaturesModule, DatabaseModule],
   controllers: [AppController],
   providers: [AppService],
 })

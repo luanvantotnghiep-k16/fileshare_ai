@@ -88,16 +88,16 @@ The purpose of this backend is to provide a secure platform for file sharing, wh
 
 ## API Endpoints
 
-- `POST /api/auth/register`: Register a new user.
-- `POST /api/auth/login`: Login a user and return a JWT token.
-- `GET /api/users/me`: Retrieve the authenticated user's information.
-- `PUT /api/users/name`: Update the authenticated user's name.
-- `PUT /api/users/password`: Change the authenticated user's password.
-- `GET /api/users/search-emails`: Search for users by their email addresses.
-- `POST /api/file/upload`: Upload a file (requires authentication).
-- `GET /api/file/retrieve`: Retrieve an uploaded file by ID (requires authentication).
-- `POST /api/list/send`: Send a list of files to another user.
-- `GET /api/list/receive`: Retrieve the list of files received from another user.
+- `POST /auth/register`: Register a new user.
+- `POST /auth/login`: Login a user and return a JWT token.
+- `GET /users/me`: Retrieve the authenticated user's information.
+- `PUT /users/name`: Update the authenticated user's name.
+- `PUT /users/password`: Change the authenticated user's password.
+- `GET /users/search-emails`: Search for users by their email addresses.
+- `POST /file/upload`: Upload a file (requires authentication).
+- `GET /file/retrieve`: Retrieve an uploaded file by ID (requires authentication).
+- `POST /list/send`: Send a list of files to another user.
+- `GET /list/receive`: Retrieve the list of files received from another user.
 
 ## Backend Environment Configuration
 

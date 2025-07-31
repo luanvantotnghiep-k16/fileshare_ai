@@ -13,7 +13,7 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
+    return this.authService.register(createUserDto);
   }
 
   @Post('login')
@@ -25,6 +25,7 @@ export class AuthController {
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');
     }
-    return this.authService.login(user);
+    return this.authService.login({email: user.email, _id: user._id.toString()});
+
   }
 }
