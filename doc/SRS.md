@@ -23,8 +23,8 @@ The purpose of this backend is to provide a secure platform for file sharing, wh
 
 2. **File Upload**
    - Users can upload files to the server via an upload page with the following fields: id, file name, recipient email, expiration date, created at, and an upload button.
-   - When the user clicks the upload button, a dialog form appears allowing input of recipient email, password to encrypt, expiration date, and file upload.
-   - Uploaded files are encrypted before storage.
+   - When the user clicks the upload button, a dialog form appears allowing input of recipient email, password to encrypt (required), expiration date, and file upload.
+   - Uploaded files are encrypted before storage using the provided password. The password is securely hashed and stored for later verification.
 
 3. **File Storage**
    - Encrypted files are stored securely.
@@ -35,7 +35,7 @@ The purpose of this backend is to provide a secure platform for file sharing, wh
    - Shared users receive an email notification with a secure link to access the file.
    - Only authorized users can decrypt and download shared files.
    - Recipient files page displays: id, file name, recipient email, expiration date, created at, and actions (download).
-   - When the user clicks download, a form appears to input the password. If the password matches the file's password, the file is downloaded; otherwise, an error is displayed.
+   - When the user clicks download, a form appears to input the password. If the password matches (verified against the stored hash), the file is decrypted and downloaded; otherwise, an error is displayed.
 
 5. **File Download**
    - Users can download files they own or that have been shared with them.
@@ -53,9 +53,11 @@ The purpose of this backend is to provide a secure platform for file sharing, wh
 - **Scalability**: Designed to support a growing number of users and files.
 - **Reliability**: High availability and fault tolerance.
 - **Usability**: Clear API documentation and error messages.
+ - **Usability**: Clear API documentation and error messages. All endpoints return standard HTTP status codes and error objects (e.g., 401 Unauthorized, 400 Bad Request) for failed authentication, validation, or access.
 
 ## System Architecture
 - **NestJS Backend**: RESTful API endpoints for all operations.
+ - **NestJS Backend**: RESTful API endpoints for all operations, following REST conventions (GET for retrieval, POST for creation, PUT for updates).
 - **Database**: Stores user data, file metadata, and sharing permissions.
 - **File Storage**: Local or cloud storage for encrypted files.
 - **Email Service**: Integration with an SMTP provider for notifications.
@@ -94,10 +96,11 @@ The purpose of this backend is to provide a secure platform for file sharing, wh
 - `PUT /users/name`: Update the authenticated user's name.
 - `PUT /users/password`: Change the authenticated user's password.
 - `GET /users/search-emails`: Search for users by their email addresses.
-- `POST /file/upload`: Upload a file (requires authentication).
-- `GET /file/retrieve`: Retrieve an uploaded file by ID (requires authentication).
-- `POST /list/send`: Send a list of files to another user.
-- `GET /list/receive`: Retrieve the list of files received from another user.
+
+- `POST /file/upload`: Upload a file (requires authentication, password required for encryption). **[Implemented & Working]**
+- `POST /file/retrieve/:id`: Retrieve and decrypt an uploaded file by ID (requires authentication and password). **[Implemented & Working]**
+- `GET /file/list/send`: Get the list of files sent to another user. **[Implemented & Working]**
+- `GET /file/list/receive`: Retrieve the list of files received from another user. **[Implemented & Working]**
 
 ## Backend Environment Configuration
 
@@ -120,14 +123,14 @@ The frontend for the file sharing project is built using Next.js, with authentic
 
 #### File Upload
 
-- Upload page displays a table of user uploads with columns for:
+
+Upload page always displays a table with columns:
   - ID
   - File name
   - Recipient email
   - Expiration date
   - Created at
-
-- Empty-state UI shows “No results” when no uploads exist.
+If there are no uploads, the table header is still shown and the body displays an empty-state row (e.g., “No results”).
 
 - “Share File” button opens a modal form containing:
   - Recipient email input

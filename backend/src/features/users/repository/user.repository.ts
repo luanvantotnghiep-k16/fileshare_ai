@@ -6,7 +6,13 @@ import { UserDocument } from '../schemas';
 
 @Injectable()
 export class UserRepository extends AbstractRepository<UserDocument> {
-  protected readonly logger = new Logger(UserRepository.name);
+  // /**
+  //  * Finds a user by _id using Mongoose's findById.
+  //  */
+  // async findById(id: string, projection?: any): Promise<UserDocument | null> {
+  //   return this.userModel.findById(id, projection).exec();
+  // }
+  // protected readonly logger = new Logger(UserRepository.name);
 
   constructor(
     @InjectModel(UserDocument.name)

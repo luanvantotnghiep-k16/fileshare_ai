@@ -14,7 +14,7 @@ export class AuthService {
    * Registers a new user: hashes the password then delegates to UsersService.
    */
   async register(dto: CreateUserDto) {
-    return this.usersService.createUser(dto);
+    return await this.usersService.createUser(dto);
   }
 
   /**
@@ -43,7 +43,10 @@ export class AuthService {
   login(user: { email: string; _id: string }) {
     const payload = { email: user.email, sub: user._id };
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: this.jwtService.sign(payload, {
+         secret:  process.env.JWT_SECRET || 'defaultsecret',
+        expiresIn:  '1d', //30m
+      }),
     };
   }
 }
